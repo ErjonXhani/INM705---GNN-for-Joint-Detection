@@ -21,7 +21,7 @@ training:
   batch_size: 32
   learning_rate: 0.001
   epochs: 100
-  device: "cuda"
+  device: "cpu"
   checkpoint_dir: "checkpoints"
   
 # Evaluation settings
