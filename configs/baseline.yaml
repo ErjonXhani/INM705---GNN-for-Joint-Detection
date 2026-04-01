@@ -1,0 +1,30 @@
+# Baseline configuration for yoga pose GNN model
+
+# Data settings
+data:
+  raw_dir: "data/raw/YogaPoses"
+  processed_dir: "data/processed"
+  splits_dir: "data/splits"
+  train_split: 0.7
+  val_split: 0.15
+  test_split: 0.15
+  
+# Model settings
+model:
+  name: "GCN"
+  hidden_dim: 128
+  num_layers: 3
+  dropout: 0.5
+  
+# Training settings
+training:
+  batch_size: 32
+  learning_rate: 0.001
+  epochs: 100
+  device: "cuda"
+  checkpoint_dir: "checkpoints"
+  
+# Evaluation settings
+evaluation:
+  metrics: ["accuracy", "precision", "recall", "f1"]
+  output_dir: "outputs"
