@@ -1,0 +1,297 @@
+[
+    {
+        "class": "Camel",
+        "image_name": "24-0.png",
+        "image_path": "data\\raw\\YogaPoses\\Camel\\24-0.png"
+    },
+    {
+        "class": "Camel",
+        "image_name": "27-0.png",
+        "image_path": "data\\raw\\YogaPoses\\Camel\\27-0.png"
+    },
+    {
+        "class": "Camel",
+        "image_name": "3-3.png",
+        "image_path": "data\\raw\\YogaPoses\\Camel\\3-3.png"
+    },
+    {
+        "class": "Camel",
+        "image_name": "3-4.png",
+        "image_path": "data\\raw\\YogaPoses\\Camel\\3-4.png"
+    },
+    {
+        "class": "Camel",
+        "image_name": "69-0.png",
+        "image_path": "data\\raw\\YogaPoses\\Camel\\69-0.png"
+    },
+    {
+        "class": "Camel",
+        "image_name": "80-0.png",
+        "image_path": "data\\raw\\YogaPoses\\Camel\\80-0.png"
+    },
+    {
+        "class": "Camel",
+        "image_name": "86-1.png",
+        "image_path": "data\\raw\\YogaPoses\\Camel\\86-1.png"
+    },
+    {
+        "class": "Camel",
+        "image_name": "93-0.png",
+        "image_path": "data\\raw\\YogaPoses\\Camel\\93-0.png"
+    },
+    {
+        "class": "Cobra",
+        "image_name": "28-0.png",
+        "image_path": "data\\raw\\YogaPoses\\Cobra\\28-0.png"
+    },
+    {
+        "class": "Cobra",
+        "image_name": "30-1.png",
+        "image_path": "data\\raw\\YogaPoses\\Cobra\\30-1.png"
+    },
+    {
+        "class": "Cobra",
+        "image_name": "45-0.png",
+        "image_path": "data\\raw\\YogaPoses\\Cobra\\45-0.png"
+    },
+    {
+        "class": "Cobra",
+        "image_name": "71-0.png",
+        "image_path": "data\\raw\\YogaPoses\\Cobra\\71-0.png"
+    },
+    {
+        "class": "Cow",
+        "image_name": "19-0.png",
+        "image_path": "data\\raw\\YogaPoses\\Cow\\19-0.png"
+    },
+    {
+        "class": "Cow",
+        "image_name": "31-0.png",
+        "image_path": "data\\raw\\YogaPoses\\Cow\\31-0.png"
+    },
+    {
+        "class": "Cow",
+        "image_name": "61-0.png",
+        "image_path": "data\\raw\\YogaPoses\\Cow\\61-0.png"
+    },
+    {
+        "class": "Crane",
+        "image_name": "19-0.png",
+        "image_path": "data\\raw\\YogaPoses\\Crane\\19-0.png"
+    },
+    {
+        "class": "Crane",
+        "image_name": "25-0.png",
+        "image_path": "data\\raw\\YogaPoses\\Crane\\25-0.png"
+    },
+    {
+        "class": "Crane",
+        "image_name": "4-0.png",
+        "image_path": "data\\raw\\YogaPoses\\Crane\\4-0.png"
+    },
+    {
+        "class": "Downdog",
+        "image_name": "00000239.jpg",
+        "image_path": "data\\raw\\YogaPoses\\Downdog\\00000239.jpg"
+    },
+    {
+        "class": "Downdog",
+        "image_name": "00000300.jpg",
+        "image_path": "data\\raw\\YogaPoses\\Downdog\\00000300.jpg"
+    },
+    {
+        "class": "Eagle",
+        "image_name": "28-0.png",
+        "image_path": "data\\raw\\YogaPoses\\Eagle\\28-0.png"
+    },
+    {
+        "class": "Eagle",
+        "image_name": "42-0.png",
+        "image_path": "data\\raw\\YogaPoses\\Eagle\\42-0.png"
+    },
+    {
+        "class": "Eagle",
+        "image_name": "42-1.png",
+        "image_path": "data\\raw\\YogaPoses\\Eagle\\42-1.png"
+    },
+    {
+        "class": "Fish",
+        "image_name": "0-0.png",
+        "image_path": "data\\raw\\YogaPoses\\Fish\\0-0.png"
+    },
+    {
+        "class": "Fish",
+        "image_name": "52-0.png",
+        "image_path": "data\\raw\\YogaPoses\\Fish\\52-0.png"
+    },
+    {
+        "class": "Fish",
+        "image_name": "58-0.png",
+        "image_path": "data\\raw\\YogaPoses\\Fish\\58-0.png"
+    },
+    {
+        "class": "Fish",
+        "image_name": "84-0.png",
+        "image_path": "data\\raw\\YogaPoses\\Fish\\84-0.png"
+    },
+    {
+        "class": "Goddess",
+        "image_name": "00000149.jpg",
+        "image_path": "data\\raw\\YogaPoses\\Goddess\\00000149.jpg"
+    },
+    {
+        "class": "Goddess",
+        "image_name": "00000165.jpg",
+        "image_path": "data\\raw\\YogaPoses\\Goddess\\00000165.jpg"
+    },
+    {
+        "class": "Goddess",
+        "image_name": "00000348.jpg",
+        "image_path": "data\\raw\\YogaPoses\\Goddess\\00000348.jpg"
+    },
+    {
+        "class": "Lotus",
+        "image_name": "1. 09b222c616bf41088df78aac8f88b49b.png",
+        "image_path": "data\\raw\\YogaPoses\\Lotus\\1. 09b222c616bf41088df78aac8f88b49b.png"
+    },
+    {
+        "class": "Lotus",
+        "image_name": "12. yogavyayam-lotus-pose.png",
+        "image_path": "data\\raw\\YogaPoses\\Lotus\\12. yogavyayam-lotus-pose.png"
+    },
+    {
+        "class": "Lotus",
+        "image_name": "2. padmasana-step-5.png",
+        "image_path": "data\\raw\\YogaPoses\\Lotus\\2. padmasana-step-5.png"
+    },
+    {
+        "class": "Lotus",
+        "image_name": "30. 1f9d8-2640.png",
+        "image_path": "data\\raw\\YogaPoses\\Lotus\\30. 1f9d8-2640.png"
+    },
+    {
+        "class": "Lotus",
+        "image_name": "4. 3-padmasana.png",
+        "image_path": "data\\raw\\YogaPoses\\Lotus\\4. 3-padmasana.png"
+    },
+    {
+        "class": "Lotus",
+        "image_name": "4. padmasana.png",
+        "image_path": "data\\raw\\YogaPoses\\Lotus\\4. padmasana.png"
+    },
+    {
+        "class": "Lotus",
+        "image_name": "7. padmasana.png",
+        "image_path": "data\\raw\\YogaPoses\\Lotus\\7. padmasana.png"
+    },
+    {
+        "class": "Lotus",
+        "image_name": "8. e0b9ce1495114e9fb1fd76f0132fd376.png",
+        "image_path": "data\\raw\\YogaPoses\\Lotus\\8. e0b9ce1495114e9fb1fd76f0132fd376.png"
+    },
+    {
+        "class": "Plank",
+        "image_name": "00000378.jpg",
+        "image_path": "data\\raw\\YogaPoses\\Plank\\00000378.jpg"
+    },
+    {
+        "class": "Plank",
+        "image_name": "00000413.jpg",
+        "image_path": "data\\raw\\YogaPoses\\Plank\\00000413.jpg"
+    },
+    {
+        "class": "Revolved Triangle",
+        "image_name": "16-1.png",
+        "image_path": "data\\raw\\YogaPoses\\Revolved Triangle\\16-1.png"
+    },
+    {
+        "class": "Revolved Triangle",
+        "image_name": "68-0.png",
+        "image_path": "data\\raw\\YogaPoses\\Revolved Triangle\\68-0.png"
+    },
+    {
+        "class": "Tree",
+        "image_name": "00000049.jpg",
+        "image_path": "data\\raw\\YogaPoses\\Tree\\00000049.jpg"
+    },
+    {
+        "class": "Tree",
+        "image_name": "00000151.jpg",
+        "image_path": "data\\raw\\YogaPoses\\Tree\\00000151.jpg"
+    },
+    {
+        "class": "Tree",
+        "image_name": "00000171.jpg",
+        "image_path": "data\\raw\\YogaPoses\\Tree\\00000171.jpg"
+    },
+    {
+        "class": "Warrior",
+        "image_name": "00000137.jpg",
+        "image_path": "data\\raw\\YogaPoses\\Warrior\\00000137.jpg"
+    },
+    {
+        "class": "Wheel",
+        "image_name": "1-0.png",
+        "image_path": "data\\raw\\YogaPoses\\Wheel\\1-0.png"
+    },
+    {
+        "class": "Wheel",
+        "image_name": "11-0.png",
+        "image_path": "data\\raw\\YogaPoses\\Wheel\\11-0.png"
+    },
+    {
+        "class": "Wheel",
+        "image_name": "29-2.png",
+        "image_path": "data\\raw\\YogaPoses\\Wheel\\29-2.png"
+    },
+    {
+        "class": "Wheel",
+        "image_name": "31-0.png",
+        "image_path": "data\\raw\\YogaPoses\\Wheel\\31-0.png"
+    },
+    {
+        "class": "Wheel",
+        "image_name": "39-0.png",
+        "image_path": "data\\raw\\YogaPoses\\Wheel\\39-0.png"
+    },
+    {
+        "class": "Wheel",
+        "image_name": "43-0.png",
+        "image_path": "data\\raw\\YogaPoses\\Wheel\\43-0.png"
+    },
+    {
+        "class": "Wheel",
+        "image_name": "54-0.png",
+        "image_path": "data\\raw\\YogaPoses\\Wheel\\54-0.png"
+    },
+    {
+        "class": "Wheel",
+        "image_name": "55-0.png",
+        "image_path": "data\\raw\\YogaPoses\\Wheel\\55-0.png"
+    },
+    {
+        "class": "Wheel",
+        "image_name": "6-0.png",
+        "image_path": "data\\raw\\YogaPoses\\Wheel\\6-0.png"
+    },
+    {
+        "class": "Wheel",
+        "image_name": "68-0.png",
+        "image_path": "data\\raw\\YogaPoses\\Wheel\\68-0.png"
+    },
+    {
+        "class": "Wheel",
+        "image_name": "68-4.png",
+        "image_path": "data\\raw\\YogaPoses\\Wheel\\68-4.png"
+    },
+    {
+        "class": "Wheel",
+        "image_name": "88-0.png",
+        "image_path": "data\\raw\\YogaPoses\\Wheel\\88-0.png"
+    },
+    {
+        "class": "Wheel",
+        "image_name": "97-0.png",
+        "image_path": "data\\raw\\YogaPoses\\Wheel\\97-0.png"
+    }
+]
