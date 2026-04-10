@@ -3,7 +3,7 @@
 # Data settings
 data:
   raw_dir: "data/raw/YogaPoses"
-  processed_dir: "data/processed"
+  processed_dir: "keypoints"
   splits_dir: "data/splits"
   train_split: 0.7
   val_split: 0.15
