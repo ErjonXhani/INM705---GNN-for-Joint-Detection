@@ -11,8 +11,7 @@ from torch_geometric.data import Data
 class PoseDataset(Dataset):
     """Dataset class for yoga pose keypoints and graphs."""
 
-    # using full MediaPipe-style skeleton connections (33 keypoints)
-    # this defines how joints are connected in the graph
+    # full MediaPipe skeleton connections (33 keypoints)
     POSE_EDGES = [
         # face / head
         (0, 1), (0, 4),
@@ -45,7 +44,7 @@ class PoseDataset(Dataset):
         (28, 30), (28, 32),
         (30, 32),
     ]
-    
+
     def __init__(self, data_dir, split="train", transform=None):
         """
         Args:
@@ -57,32 +56,31 @@ class PoseDataset(Dataset):
         self.split = split
         self.transform = transform
 
-        # pick the correct split file (these were generated earlier)
+        # get split file first
         self.split_file = self._get_split_file()
 
-        # load all file paths from that split
+        # load file paths from split json
         self.samples = self._load_samples()
 
-        # build mapping from class name -> integer label
-        # doing this once keeps labels consistent across splits
+        # map class names to numbers
         self.label_map = self._build_label_map()
 
-        # build edge_index once since it is the same for every graph
+        # same edge structure for every graph
         self.edge_index = self._build_edge_index()
-    
+
     def _get_split_file(self):
         """Return the correct split file path."""
         split_files = {
-            "train": "data/splits/train_files.json",
-            "val": "data/splits/val_files.json",
-            "test": "data/splits/test_files.json"
+            "train": "train_files.json",
+            "val": "val_files.json",
+            "test": "test_files.json"
         }
 
         if self.split not in split_files:
             raise ValueError("split must be one of: train, val, test")
 
-        return split_files[self.split]
-    
+        return os.path.abspath(os.path.join("data", "splits", split_files[self.split]))
+
     def _load_samples(self):
         """Load file paths from the split file."""
         if not os.path.exists(self.split_file):
@@ -94,7 +92,7 @@ class PoseDataset(Dataset):
         if len(samples) == 0:
             raise ValueError(f"No samples found in {self.split_file}")
 
-        # normalise paths just in case (windows paths etc)
+        # normalise paths just in case
         samples = [os.path.normpath(path) for path in samples]
 
         return samples
@@ -102,11 +100,6 @@ class PoseDataset(Dataset):
     def _build_label_map(self):
         """
         Create mapping from folder names to integer labels.
-
-        Example:
-        "Camel" -> 0
-        "Tree" -> 1
-        etc.
         """
         class_names = [
             folder for folder in os.listdir(self.data_dir)
@@ -114,28 +107,39 @@ class PoseDataset(Dataset):
         ]
 
         class_names = sorted(class_names)
-
         return {label: idx for idx, label in enumerate(class_names)}
 
     def _build_edge_index(self):
         """Convert edge list into PyG format."""
         edge_index = torch.tensor(self.POSE_EDGES, dtype=torch.long).t().contiguous()
 
-        # make graph undirected by adding reverse edges
+        # add reverse edges so graph is undirected
         reverse_edges = edge_index.flip(0)
         edge_index = torch.cat([edge_index, reverse_edges], dim=1)
 
         return edge_index
-    
+
     def __len__(self):
         """Return number of samples in this split."""
         return len(self.samples)
-    
+
     def __getitem__(self, idx):
         """Load one sample and convert it into a graph."""
-        file_path = self.samples[idx]
+        rel_path = self.samples[idx]
+
+        # clean up slashes from json
+        rel_path = rel_path.replace("\\", "/").strip()
+
+        # if old split files still contain ../keypoints/, remove that bit
+        if rel_path.startswith("../keypoints/"):
+            rel_path = rel_path.replace("../keypoints/", "", 1)
+
+        file_path = os.path.join(self.data_dir, rel_path)
+        file_path = os.path.normpath(file_path)
+        file_path = os.path.abspath(file_path)
 
         if not os.path.exists(file_path):
+            print("Missing file:", file_path)
             raise FileNotFoundError(f"File not found: {file_path}")
 
         # load json file
