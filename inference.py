@@ -1,46 +1,130 @@
-"""Inference script for yoga pose classification."""
+"""Inference / evaluation script for yoga pose classification."""
 
 import argparse
 import torch
+from torch_geometric.loader import DataLoader
+
 from src.utils.helpers import load_config, load_checkpoint
 from src.models.gcn_model import PoseGCN
+from src.datasets.pose_dataset import PoseDataset
 
 
-def main(checkpoint_path, image_path, config_path):
+def main(checkpoint_path, config_path, split="test", num_examples=5):
     """
-    Run inference on a single image.
-    
+    Run inference on a full dataset split.
+
     Args:
-        checkpoint_path: Path to model checkpoint
-        image_path: Path to input image
-        config_path: Path to configuration file
+        checkpoint_path: path to saved model checkpoint
+        config_path: path to yaml config
+        split: which split to run on (train / val / test)
+        num_examples: how many example predictions to print
     """
-    # Load configuration
+    # load config first
     config = load_config(config_path)
-    
-    # Initialize model
+
+    # load dataset
+    # this gives us graph samples plus the label map
+    dataset = PoseDataset(config["data"]["processed_dir"], split=split)
+
+    # PyG batches graphs together and creates a batch vector automatically
+    loader = DataLoader(
+        dataset,
+        batch_size=config["training"]["batch_size"],
+        shuffle=False
+    )
+
+    # reverse label map so we can print readable class names
+    idx_to_label = {idx: label for label, idx in dataset.label_map.items()}
+
+    # build model with same settings used in training
     device = config["training"]["device"]
     model = PoseGCN(
-        input_dim=17,
+        input_dim=3,  # each node is [x, y, confidence]
         hidden_dim=config["model"]["hidden_dim"],
-        num_classes=13,
+        num_classes=len(dataset.label_map),
         num_layers=config["model"]["num_layers"],
         dropout=config["model"]["dropout"],
     )
     model.to(device)
-    
-    # Load checkpoint
+
+    # helper expects an optimizer too, even though we are only doing inference
     optimizer = torch.optim.Adam(model.parameters())
+
+    # load trained weights
     load_checkpoint(model, optimizer, checkpoint_path)
-    
-    # TODO: Load image, extract keypoints, create graph, and run inference
-    
+
+    # switch model to eval mode
+    model.eval()
+
+    total_correct = 0
+    total_samples = 0
+
+    # store a few examples so we can inspect predictions
+    example_results = []
+
+    # no gradients needed during inference
+    with torch.no_grad():
+        for batch in loader:
+            batch = batch.to(device)
+
+            # forward pass
+            out = model(batch.x, batch.edge_index, batch.batch)
+
+            # highest logit = predicted class
+            preds = out.argmax(dim=1)
+
+            total_correct += (preds == batch.y).sum().item()
+            total_samples += batch.y.size(0)
+
+            # keep a few examples to print later
+            for pred, true in zip(preds.tolist(), batch.y.tolist()):
+                if len(example_results) < num_examples:
+                    example_results.append(
+                        (
+                            idx_to_label[pred],
+                            idx_to_label[true]
+                        )
+                    )
+
+    accuracy = total_correct / total_samples if total_samples > 0 else 0.0
+
+    print(f"\nFinished inference on {split} split")
+    print(f"Total samples: {total_samples}")
+    print(f"Correct predictions: {total_correct}")
+    print(f"Accuracy: {accuracy:.4f}")
+
+    if example_results:
+        print("\nExample predictions:")
+        for i, (pred_label, true_label) in enumerate(example_results, start=1):
+            print(f"{i}. Predicted: {pred_label} | True: {true_label}")
+
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Run inference on yoga pose image")
-    parser.add_argument("--checkpoint", type=str, required=True, help="Path to model checkpoint")
-    parser.add_argument("--image", type=str, required=True, help="Path to input image")
-    parser.add_argument("--config", type=str, default="configs/baseline.yaml", help="Path to config file")
+    parser = argparse.ArgumentParser(description="Run inference on yoga pose graphs")
+    parser.add_argument(
+        "--checkpoint",
+        type=str,
+        required=True,
+        help="Path to saved checkpoint"
+    )
+    parser.add_argument(
+        "--config",
+        type=str,
+        default="configs/baseline.yaml",
+        help="Path to config file"
+    )
+    parser.add_argument(
+        "--split",
+        type=str,
+        default="test",
+        help="Which split to evaluate on"
+    )
+    parser.add_argument(
+        "--num_examples",
+        type=int,
+        default=5,
+        help="How many example predictions to print"
+    )
     args = parser.parse_args()
-    
-    main(args.checkpoint, args.image, args.config)
+
+    main(args.checkpoint, args.config, args.split, args.num_examples)
