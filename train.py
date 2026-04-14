@@ -8,6 +8,8 @@ from torch_geometric.loader import DataLoader
 
 from src.utils.helpers import load_config, save_checkpoint
 from src.models.gcn_model import PoseGCN
+from src.models.sage_model import PoseGraphSAGE   
+from src.models.gin_model import PoseGIN          
 from src.datasets.pose_dataset import PoseDataset
 from src.training.trainer import PoseTrainer
 
@@ -51,13 +53,35 @@ def main(config_path):
 
     # model setup
     # each node has [x, y, confidence]
-    model = PoseGCN(
-        input_dim=3,
-        hidden_dim=config["model"]["hidden_dim"],
-        num_classes=len(train_dataset.label_map),
-        num_layers=config["model"]["num_layers"],
-        dropout=config["model"]["dropout"],
-    )
+        
+    model_name = config["model"]["name"]
+
+    if model_name == "GCN":
+        model = PoseGCN(
+            input_dim=3,
+            hidden_dim=config["model"]["hidden_dim"],
+            num_classes=len(train_dataset.label_map),
+            num_layers=config["model"]["num_layers"],
+            dropout=config["model"]["dropout"],
+        )
+    elif model_name == "GraphSAGE":
+        model = PoseGraphSAGE(
+            input_dim=3,
+            hidden_dim=config["model"]["hidden_dim"],
+            num_classes=len(train_dataset.label_map),
+            num_layers=config["model"]["num_layers"],
+            dropout=config["model"]["dropout"],
+        )
+    elif model_name == "GIN":
+        model = PoseGIN(
+            input_dim=3,
+            hidden_dim=config["model"]["hidden_dim"],
+            num_classes=len(train_dataset.label_map),
+            num_layers=config["model"]["num_layers"],
+            dropout=config["model"]["dropout"],
+        )
+    else:
+        raise ValueError(f"Unsupported model name: {model_name}")
 
     # trainer
     device = config["training"]["device"]

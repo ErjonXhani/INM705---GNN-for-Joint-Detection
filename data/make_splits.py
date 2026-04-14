@@ -6,7 +6,7 @@ import random
 
 
 def make_splits(
-    data_dir="../keypoints",
+    data_dir="keypoints",
     output_dir="data/splits",
     train_ratio=0.7,
     val_ratio=0.15,
@@ -43,7 +43,7 @@ def make_splits(
         # get all json files for this class
         files = sorted(
             [
-                os.path.join(class_path, f)
+                os.path.join(class_name, f)
                 for f in os.listdir(class_path)
                 if f.endswith(".json")
             ]
