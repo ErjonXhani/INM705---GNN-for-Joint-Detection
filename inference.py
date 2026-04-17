@@ -24,11 +24,16 @@ def main(checkpoint_path, config_path, split="test", num_examples=5):
     """
     # load config first
     config = load_config(config_path)
+    use_conf = config["model"].get("use_confidence", True)
+    input_dim = 3 if use_conf else 2
 
     # load dataset
     # this gives us graph samples plus the label map
-    dataset = PoseDataset(config["data"]["processed_dir"], split=split)
-
+    dataset = PoseDataset(
+        config["data"]["processed_dir"],
+        split=split,
+        use_confidence=use_conf
+)
     # PyG batches graphs together and creates a batch vector automatically
     loader = DataLoader(
         dataset,
@@ -46,7 +51,7 @@ def main(checkpoint_path, config_path, split="test", num_examples=5):
 
     if model_name == "GCN":
         model = PoseGCN(
-            input_dim=3,
+            input_dim=input_dim,
             hidden_dim=config["model"]["hidden_dim"],
             num_classes=len(dataset.label_map),
             num_layers=config["model"]["num_layers"],
@@ -54,7 +59,7 @@ def main(checkpoint_path, config_path, split="test", num_examples=5):
         )
     elif model_name == "GraphSAGE":
         model = PoseGraphSAGE(
-            input_dim=3,
+            input_dim=input_dim,
             hidden_dim=config["model"]["hidden_dim"],
             num_classes=len(dataset.label_map),
             num_layers=config["model"]["num_layers"],
@@ -62,7 +67,7 @@ def main(checkpoint_path, config_path, split="test", num_examples=5):
         )
     elif model_name == "GIN":
         model = PoseGIN(
-            input_dim=3,
+            input_dim=input_dim,
             hidden_dim=config["model"]["hidden_dim"],
             num_classes=len(dataset.label_map),
             num_layers=config["model"]["num_layers"],
