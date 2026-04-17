@@ -129,3 +129,5 @@ outputs/
 *.pt
 data/processed/
 .DS_Store
+
+wandb/
