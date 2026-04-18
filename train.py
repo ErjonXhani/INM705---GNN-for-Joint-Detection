@@ -48,9 +48,20 @@ def main(config_path):
     os.makedirs(config["training"]["checkpoint_dir"], exist_ok=True)
 
     # load train/val splits first so we can get the number of classes
-    train_dataset = PoseDataset(config["data"]["processed_dir"], split="train")
-    val_dataset = PoseDataset(config["data"]["processed_dir"], split="val")
+    use_conf = config["model"].get("use_confidence", True)
+    input_dim = 3 if use_conf else 2
 
+    train_dataset = PoseDataset(
+        config["data"]["processed_dir"],
+        split="train",
+        use_confidence=use_conf
+)
+
+    val_dataset = PoseDataset(
+        config["data"]["processed_dir"],
+        split="val",
+        use_confidence=use_conf
+)
     # model setup
     # each node has [x, y, confidence]
         
@@ -58,7 +69,7 @@ def main(config_path):
 
     if model_name == "GCN":
         model = PoseGCN(
-            input_dim=3,
+            input_dim=input_dim,
             hidden_dim=config["model"]["hidden_dim"],
             num_classes=len(train_dataset.label_map),
             num_layers=config["model"]["num_layers"],
@@ -66,7 +77,7 @@ def main(config_path):
         )
     elif model_name == "GraphSAGE":
         model = PoseGraphSAGE(
-            input_dim=3,
+            input_dim=input_dim,
             hidden_dim=config["model"]["hidden_dim"],
             num_classes=len(train_dataset.label_map),
             num_layers=config["model"]["num_layers"],
@@ -74,7 +85,7 @@ def main(config_path):
         )
     elif model_name == "GIN":
         model = PoseGIN(
-            input_dim=3,
+            input_dim=input_dim,
             hidden_dim=config["model"]["hidden_dim"],
             num_classes=len(train_dataset.label_map),
             num_layers=config["model"]["num_layers"],

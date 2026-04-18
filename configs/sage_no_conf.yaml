@@ -1,0 +1,30 @@
+# GraphSAGE without confidence feature
+
+data:
+  raw_dir: "data/raw/YogaPoses"
+  processed_dir: "keypoints"
+  splits_dir: "data/splits"
+
+model:
+  name: "GraphSAGE"
+  hidden_dim: 128
+  num_layers: 3
+  dropout: 0.5
+  use_confidence: false   
+
+training:
+  batch_size: 32
+  learning_rate: 0.001
+  epochs: 100
+  device: "cpu"
+  checkpoint_dir: "checkpoints"
+  run_name: "sage_no_conf_erjon"
+
+notes:
+  experiment_goal: "GraphSAGE without confidence feature"
+  node_features: "[x, y]"
+  comments: "Testing whether confidence improves pose classification"
+
+evaluation:
+  metrics: ["accuracy", "precision", "recall", "f1"]
+  output_dir: "outputs"

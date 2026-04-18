@@ -45,7 +45,7 @@ class PoseDataset(Dataset):
         (30, 32),
     ]
 
-    def __init__(self, data_dir, split="train", transform=None):
+    def __init__(self, data_dir, split="train", transform=None, use_confidence=True):
         """
         Args:
             data_dir: path to keypoints folder
@@ -55,6 +55,7 @@ class PoseDataset(Dataset):
         self.data_dir = data_dir
         self.split = split
         self.transform = transform
+        self.use_confidence = use_confidence
 
         # get split file first
         self.split_file = self._get_split_file()
@@ -151,6 +152,8 @@ class PoseDataset(Dataset):
 
         # node features: [x, y, confidence]
         x = torch.tensor(keypoints, dtype=torch.float)
+        if not self.use_confidence:
+            x = x[:, :2]
 
         if self.transform is not None:
             x = self.transform(x)

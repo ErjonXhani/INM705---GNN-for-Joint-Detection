@@ -15,7 +15,7 @@ model:
 training:
   batch_size: 32
   learning_rate: 0.001
-  epochs: 3
+  epochs: 100
   device: "cpu"
   checkpoint_dir: "checkpoints"
   run_name: "gin_baseline_erjon"
