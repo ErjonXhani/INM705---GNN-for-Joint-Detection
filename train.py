@@ -8,8 +8,9 @@ from torch_geometric.loader import DataLoader
 
 from src.utils.helpers import load_config, save_checkpoint
 from src.models.gcn_model import PoseGCN
-from src.models.sage_model import PoseGraphSAGE   
-from src.models.gin_model import PoseGIN          
+from src.models.sage_model import PoseGraphSAGE
+from src.models.gin_model import PoseGIN
+from src.models.gat_model import PoseGAT
 from src.datasets.pose_dataset import PoseDataset
 from src.training.trainer import PoseTrainer
 
@@ -47,24 +48,24 @@ def main(config_path):
     # make checkpoint folder if it does not exist
     os.makedirs(config["training"]["checkpoint_dir"], exist_ok=True)
 
-    # load train/val splits first so we can get the number of classes
+    # choose whether to include confidence in node features
     use_conf = config["model"].get("use_confidence", True)
     input_dim = 3 if use_conf else 2
 
+    # load train/val splits first so we can get the number of classes
     train_dataset = PoseDataset(
         config["data"]["processed_dir"],
         split="train",
         use_confidence=use_conf
-)
+    )
 
     val_dataset = PoseDataset(
         config["data"]["processed_dir"],
         split="val",
         use_confidence=use_conf
-)
+    )
+
     # model setup
-    # each node has [x, y, confidence]
-        
     model_name = config["model"]["name"]
 
     if model_name == "GCN":
@@ -75,6 +76,7 @@ def main(config_path):
             num_layers=config["model"]["num_layers"],
             dropout=config["model"]["dropout"],
         )
+
     elif model_name == "GraphSAGE":
         model = PoseGraphSAGE(
             input_dim=input_dim,
@@ -83,6 +85,7 @@ def main(config_path):
             num_layers=config["model"]["num_layers"],
             dropout=config["model"]["dropout"],
         )
+
     elif model_name == "GIN":
         model = PoseGIN(
             input_dim=input_dim,
@@ -91,6 +94,17 @@ def main(config_path):
             num_layers=config["model"]["num_layers"],
             dropout=config["model"]["dropout"],
         )
+
+    elif model_name == "GAT":
+        model = PoseGAT(
+            input_dim=input_dim,
+            hidden_dim=config["model"]["hidden_dim"],
+            num_classes=len(train_dataset.label_map),
+            num_layers=config["model"]["num_layers"],
+            heads=config["model"].get("heads", 4),
+            dropout=config["model"]["dropout"],
+        )
+
     else:
         raise ValueError(f"Unsupported model name: {model_name}")
 
@@ -155,7 +169,7 @@ def main(config_path):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Train yoga pose GCN model")
+    parser = argparse.ArgumentParser(description="Train yoga pose GNN model")
     parser.add_argument(
         "--config",
         type=str,
