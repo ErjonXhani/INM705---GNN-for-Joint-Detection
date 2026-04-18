@@ -1,0 +1,29 @@
+data:
+  raw_dir: "data/raw/YogaPoses"
+  processed_dir: "keypoints"
+  splits_dir: "data/splits"
+
+model:
+  name: "GAT"
+  hidden_dim: 128
+  num_layers: 3
+  heads: 2
+  dropout: 0.6
+  use_confidence: true
+
+training:
+  batch_size: 32
+  learning_rate: 0.001
+  epochs: 100
+  device: "cpu"
+  checkpoint_dir: "checkpoints"
+  run_name: "gat_heads2_omari"
+
+notes:
+  experiment_goal: "Test whether fewer attention heads reduces GAT performance"
+  node_features: "[x, y, confidence]"
+  comments: "Direct comparison against the 4-head baseline and 8-head variant"
+
+evaluation:
+  metrics: ["accuracy", "precision", "recall", "f1"]
+  output_dir: "outputs"

@@ -1,0 +1,30 @@
+data:
+  raw_dir: "data/raw/YogaPoses"
+  processed_dir: "keypoints"
+  splits_dir: "data/splits"
+
+model:
+  name: "GAT"
+  hidden_dim: 64
+  num_layers: 3
+  heads: 8
+  dropout: 0.6
+  use_confidence: true
+
+training:
+  batch_size: 32
+  learning_rate: 0.001
+  epochs: 100
+  device: "cpu"
+  checkpoint_dir: "checkpoints"
+  run_name: "gat_heads8_seed2_omari"
+  seed: 123
+
+notes:
+  experiment_goal: "Check whether the best GAT setup is stable across another seed"
+  node_features: "[x, y, confidence]"
+  comments: "Same as heads8 run but with a different random seed for robustness"
+
+evaluation:
+  metrics: ["accuracy", "precision", "recall", "f1"]
+  output_dir: "outputs"

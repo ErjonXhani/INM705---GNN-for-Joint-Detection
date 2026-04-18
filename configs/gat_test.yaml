@@ -1,0 +1,29 @@
+data:
+  raw_dir: "data/raw/YogaPoses"
+  processed_dir: "keypoints"
+  splits_dir: "data/splits"
+
+model:
+  name: "GAT"
+  hidden_dim: 64
+  num_layers: 2
+  heads: 2
+  dropout: 0.5
+  use_confidence: true
+
+training:
+  batch_size: 32
+  learning_rate: 0.001
+  epochs: 3
+  device: "cpu"
+  checkpoint_dir: "checkpoints"
+  run_name: "gat_test_omari"
+
+notes:
+  experiment_goal: "Quick test run for GAT pipeline"
+  node_features: "[x, y, confidence]"
+  comments: "Used just to check training, checkpoint saving, and wandb logging before full runs"
+
+evaluation:
+  metrics: ["accuracy", "precision", "recall", "f1"]
+  output_dir: "outputs"
