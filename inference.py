@@ -11,49 +11,14 @@ from src.models.sage_model import PoseGraphSAGE
 from src.models.gin_model import PoseGIN
 
 
-
-def main(checkpoint_path, config_path, split="test", num_examples=5):
-    """
-    Run inference on a full dataset split.
-
-    Args:
-        checkpoint_path: path to saved model checkpoint
-        config_path: path to yaml config
-        split: which split to run on (train / val / test)
-        num_examples: how many example predictions to print
-    """
-    # load config first
-    config = load_config(config_path)
-    use_conf = config["model"].get("use_confidence", True)
-    input_dim = 3 if use_conf else 2
-
-    # load dataset
-    # this gives us graph samples plus the label map
-    dataset = PoseDataset(
-        config["data"]["processed_dir"],
-        split=split,
-        use_confidence=use_conf
-)
-    # PyG batches graphs together and creates a batch vector automatically
-    loader = DataLoader(
-        dataset,
-        batch_size=config["training"]["batch_size"],
-        shuffle=False
-    )
-
-    # reverse label map so we can print readable class names
-    idx_to_label = {idx: label for label, idx in dataset.label_map.items()}
-
-    # build model with same settings used in training
-    device = config["training"]["device"]
-    
+def build_model(config, num_classes, input_dim):
     model_name = config["model"]["name"]
 
     if model_name == "GCN":
         model = PoseGCN(
             input_dim=input_dim,
             hidden_dim=config["model"]["hidden_dim"],
-            num_classes=len(dataset.label_map),
+            num_classes=num_classes,
             num_layers=config["model"]["num_layers"],
             dropout=config["model"]["dropout"],
         )
@@ -61,7 +26,7 @@ def main(checkpoint_path, config_path, split="test", num_examples=5):
         model = PoseGraphSAGE(
             input_dim=input_dim,
             hidden_dim=config["model"]["hidden_dim"],
-            num_classes=len(dataset.label_map),
+            num_classes=num_classes,
             num_layers=config["model"]["num_layers"],
             dropout=config["model"]["dropout"],
         )
@@ -69,52 +34,104 @@ def main(checkpoint_path, config_path, split="test", num_examples=5):
         model = PoseGIN(
             input_dim=input_dim,
             hidden_dim=config["model"]["hidden_dim"],
-            num_classes=len(dataset.label_map),
+            num_classes=num_classes,
             num_layers=config["model"]["num_layers"],
             dropout=config["model"]["dropout"],
         )
     else:
         raise ValueError(f"Unsupported model name: {model_name}")
-    
+
+    return model
+
+
+def main(checkpoint_path, config_path, split="test", num_examples=5, graph_path=None):
+    """
+    Run inference on either:
+    1. a full dataset split, or
+    2. a single graph file (.pt)
+
+    Args:
+        checkpoint_path: path to saved model checkpoint
+        config_path: path to yaml config
+        split: which split to run on (train / val / test)
+        num_examples: how many example predictions to print
+        graph_path: optional path to a single .pt graph file
+    """
+    config = load_config(config_path)
+    use_conf = config["model"].get("use_confidence", True)
+    input_dim = 3 if use_conf else 2
+    device = config["training"]["device"]
+
+    # Load dataset once to access label_map and number of classes
+    dataset = PoseDataset(
+        config["data"]["processed_dir"],
+        split=split,
+        use_confidence=use_conf
+    )
+
+    idx_to_label = {idx: label for label, idx in dataset.label_map.items()}
+
+    model = build_model(config, len(dataset.label_map), input_dim)
     model.to(device)
 
-    # helper expects an optimizer too, even though we are only doing inference
     optimizer = torch.optim.Adam(model.parameters())
-
-    # load trained weights
     load_checkpoint(model, optimizer, checkpoint_path)
-
-    # switch model to eval mode
     model.eval()
+
+    # -------------------------------
+    # SINGLE GRAPH MODE
+    # -------------------------------
+    if graph_path is not None:
+        graph = torch.load(graph_path, weights_only=False)
+
+        # Ensure batch exists for single-graph inference
+        if not hasattr(graph, "batch") or graph.batch is None:
+            graph.batch = torch.zeros(graph.num_nodes, dtype=torch.long)
+
+        graph = graph.to(device)
+
+        with torch.no_grad():
+            out = model(graph.x, graph.edge_index, graph.batch)
+            pred = out.argmax(dim=1).item()
+
+        pred_label = idx_to_label[pred]
+        print("\nFinished inference on single graph")
+        print(f"Graph file: {graph_path}")
+        print(f"Predicted class: {pred_label}")
+
+        if hasattr(graph, "y") and graph.y is not None:
+            true_idx = graph.y.item() if graph.y.dim() == 0 else graph.y[0].item()
+            true_label = idx_to_label[true_idx]
+            print(f"True class: {true_label}")
+
+        return
+
+    # -------------------------------
+    # FULL SPLIT MODE
+    # -------------------------------
+    loader = DataLoader(
+        dataset,
+        batch_size=config["training"]["batch_size"],
+        shuffle=False
+    )
 
     total_correct = 0
     total_samples = 0
-
-    # store a few examples so we can inspect predictions
     example_results = []
 
-    # no gradients needed during inference
     with torch.no_grad():
         for batch in loader:
             batch = batch.to(device)
-
-            # forward pass
             out = model(batch.x, batch.edge_index, batch.batch)
-
-            # highest logit = predicted class
             preds = out.argmax(dim=1)
 
             total_correct += (preds == batch.y).sum().item()
             total_samples += batch.y.size(0)
 
-            # keep a few examples to print later
             for pred, true in zip(preds.tolist(), batch.y.tolist()):
                 if len(example_results) < num_examples:
                     example_results.append(
-                        (
-                            idx_to_label[pred],
-                            idx_to_label[true]
-                        )
+                        (idx_to_label[pred], idx_to_label[true])
                     )
 
     accuracy = total_correct / total_samples if total_samples > 0 else 0.0
@@ -156,6 +173,19 @@ if __name__ == "__main__":
         default=5,
         help="How many example predictions to print"
     )
+    parser.add_argument(
+        "--graph",
+        type=str,
+        default=None,
+        help="Optional path to a single graph .pt file"
+    )
+
     args = parser.parse_args()
 
-    main(args.checkpoint, args.config, args.split, args.num_examples)
+    main(
+        args.checkpoint,
+        args.config,
+        args.split,
+        args.num_examples,
+        args.graph
+    )
