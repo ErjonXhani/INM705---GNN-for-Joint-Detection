@@ -1,98 +1,150 @@
 # Yoga Pose GNN
 
-A Graph Neural Network (GNN) model for yoga pose classification and analysis using keypoint detection.
+A Graph Neural Network (GNN) project for yoga pose classification using human body keypoints extracted from images. The system converts detected body landmarks into graph representations, where joints are treated as nodes and anatomical connections are treated as edges, and then uses GNN models to classify yoga poses.
+
+## Project Overview
+
+This project investigates the use of Graph Neural Networks for yoga pose recognition. Instead of performing classification directly on raw images, the pipeline first extracts human pose keypoints and then builds a skeleton graph for each image. These graphs are used as input to the GNN model.
+
+The project includes:
+- keypoint extraction from yoga pose images
+- graph construction from body landmarks
+- training and evaluation of GNN-based classifiers
+- inference on new input images
 
 ## Project Structure
 
-```
-yoga-pose-gnn/
-├── data/                    # Data directory
-│   ├── raw/                 # Original yoga pose images
-│   ├── processed/           # Extracted keypoints and graphs
-│   └── splits/              # Train/val/test split files
-├── notebooks/               # Jupyter notebooks
-│   └── openpose_testing.ipynb
-├── src/                     # Source code
-│   ├── datasets/            # Dataset classes
-│   ├── models/              # Model architectures
-│   ├── preprocessing/       # Data preprocessing scripts
-│   ├── training/            # Training utilities
-│   ├── evaluation/          # Evaluation metrics
-│   └── utils/               # Helper functions
-├── checkpoints/             # Saved model checkpoints
-├── outputs/                 # Output results
-│   ├── figures/             # Visualization figures
-│   └── predictions/         # Model predictions
-├── configs/                 # Configuration files
-├── train.py                 # Training script
-├── inference.py             # Inference script
-├── requirements.txt         # Python dependencies
-├── README.md                # This file
-├── .gitignore               # Git ignore rules
-└── CONTRIBUTIONS.md         # Contribution guidelines
-```
+
+INM705---GNN-FOR-JOINT-DETECTION/
+├── checkpoints/                    # Saved model checkpoints
+├── configs/                        # Configuration files
+├── data/
+│   ├── processed/                  # Processed graph data
+│   ├── raw/                        # Raw yoga pose images
+│   ├── splits/                     # Train/validation/test split files
+│   └── make_splits.py              # Script for dataset splitting
+├── failed_images/                  # Images where keypoint extraction failed
+├── keypoints/                      # Extracted keypoint files
+├── outputs/                        # Output results and confusion matrices
+├── src/
+│   ├── datasets/                   # Dataset definitions
+│   ├── evaluation/                 # Metrics and evaluation utilities
+│   ├── models/                     # GCN, GAT, GIN, and GraphSAGE models
+│   ├── preprocessing/              # Keypoint extraction and graph conversion
+│   ├── training/                   # Training pipeline
+│   └── utils/                      # Helper utilities
+├── wandb/                          # Experiment tracking logs
+├── confusion_matrix_eval.py        # Confusion matrix evaluation script
+├── inference.py                    # Inference script
+├── train.py                        # Main training script
+├── requirements.txt                # Python dependencies
+├── README.md                       # Project documentation
+├── CONTRIBUTIONS.md                # Contribution guidelines
+└── .gitignore
+
+## Requirements
+
+**Recommended environment:**
+- Python 3.10 or 3.11
+- pip
+- virtual environment support
+
+This project was developed in a virtual environment.
 
 ## Installation
 
-1. Clone the repository:
-```bash
+### 1. Clone the repository
+
 git clone <repository-url>
-cd yoga-pose-gnn
-```
+cd INM705---GNN-FOR-JOINT-DETECTION 
 
-2. Create a virtual environment:
-```bash
+### 2. Create and activate a virtual environment
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
+source venv/bin/activate
 
-3. Install dependencies:
-```bash
+On Windows:
+venv\Scripts\activate
+
+### 3. Install dependencies
 pip install -r requirements.txt
-```
 
-## Usage
+## PyTorch Geometric Note
+PyTorch Geometric may require additional environment-specific dependencies on some systems.
 
-### Training
+If installation issues occur, please refer to the official installation guide:
 
-Train the model using the baseline configuration:
-```bash
-python train.py --config configs/baseline.yaml
-```
-
-### Inference
-
-Run inference on a single image:
-```bash
-python inference.py --checkpoint checkpoints/model.pth --image path/to/image.jpg
-```
+https://pytorch-geometric.readthedocs.io/en/latest/install/installation.html
 
 ## Data
 
-The raw yoga pose images are located in `data/raw/YogaPoses/`. The dataset includes the following poses:
-- Camel
-- Cobra
-- Cow
-- Crane
-- Downdog
-- Eagle
-- Fish
-- Goddess
-- Lotus
-- Plank
-- Revolved Triangle
-- Tree
-- Warrior
-- Wheel
+The raw yoga pose images are located in: data/raw/YogaPoses/
 
-## Configuration
+### Dataset Classes
 
-Model and training parameters can be modified in `configs/baseline.yaml`.
+- Camel  
+- Cobra  
+- Cow  
+- Crane  
+- Downdog  
+- Eagle  
+- Fish  
+- Goddess  
+- Lotus  
+- Plank  
+- Revolved Triangle  
+- Tree  
+- Warrior  
+- Wheel  
 
-## Contributing
+### Preprocessing Pipeline
 
-See [CONTRIBUTIONS.md](CONTRIBUTIONS.md) for guidelines on contributing to this project.
+Before training, the dataset should go through the following steps:
 
-## License
+1. Extract pose keypoints from the raw yoga images  
+2. Convert extracted keypoints into graph representations  
+3. Split the dataset into training, validation, and test sets  
+4. Save processed graph data in the `data/processed/` directory  
+
+### Usage
+
+## Training
+Train the model using the baseline configuration:
+
+python train.py --config configs/baseline.yaml
+
+### Evaluation / Inference
+
+Inference in this project is performed as part of the evaluation pipeline on the test dataset.
+
+For example, evaluation scripts can be used to generate performance metrics and confusion matrices:
+python confusion_matrix_eval.py
+
+**Note:**
+- The model operates on graph-structured data derived from pose keypoints  
+- Raw images cannot be used directly for inference  
+- Images must first be preprocessed through keypoint extraction and graph conversion before being passed to the model 
+
+### Configuration
+
+Model and training parameters can be modified in: configs/ baseline.yaml
+
+These may include:
+- hidden dimension
+- number of GNN layers
+- dropout
+- learning rate
+- batch size
+- number of epochs
+
+### Outputs
+During execution, the project may generate:
+- trained model checkpoints in checkpoints/
+- output figures (e.g., confusion matrices) in outputs/
+
+### Contributing
+
+See CONTRIBUTIONS.md for contribution guidelines.
+
+### License
 
 This project is licensed under the MIT License.
