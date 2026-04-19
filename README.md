@@ -14,7 +14,7 @@ The project includes:
 
 ## Project Structure
 
-
+```text
 INM705---GNN-FOR-JOINT-DETECTION/
 ├── checkpoints/                    # Saved model checkpoints
 ├── configs/                        # Configuration files
@@ -29,7 +29,7 @@ INM705---GNN-FOR-JOINT-DETECTION/
 ├── src/
 │   ├── datasets/                   # Dataset definitions
 │   ├── evaluation/                 # Metrics and evaluation utilities
-│   ├── models/                     # GCN, GAT, GIN, and GraphSAGE models
+│   ├── models/                     # GCN, GAT, GIN, GraphSAGE models
 │   ├── preprocessing/              # Keypoint extraction and graph conversion
 │   ├── training/                   # Training pipeline
 │   └── utils/                      # Helper utilities
@@ -41,7 +41,7 @@ INM705---GNN-FOR-JOINT-DETECTION/
 ├── README.md                       # Project documentation
 ├── CONTRIBUTIONS.md                # Contribution guidelines
 └── .gitignore
-
+```
 ## Requirements
 
 **Recommended environment:**
@@ -105,9 +105,9 @@ Before training, the dataset should go through the following steps:
 3. Split the dataset into training, validation, and test sets  
 4. Save processed graph data in the `data/processed/` directory  
 
-### Usage
+## Usage
 
-## Training
+### Training
 Train the model using the baseline configuration:
 
 python train.py --config configs/baseline.yaml
@@ -136,15 +136,15 @@ These may include:
 - batch size
 - number of epochs
 
-### Outputs
+## Outputs
 During execution, the project may generate:
 - trained model checkpoints in checkpoints/
 - output figures (e.g., confusion matrices) in outputs/
 
-### Contributing
+## Contributing
 
 See CONTRIBUTIONS.md for contribution guidelines.
 
-### License
+## License
 
 This project is licensed under the MIT License.
