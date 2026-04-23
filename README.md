@@ -119,6 +119,7 @@ Inference in this project is performed as part of the evaluation pipeline on the
 For example, evaluation scripts can be used to generate performance metrics and confusion matrices:
 python confusion_matrix_eval.py
 
+
 **Note:**
 - The model operates on graph-structured data derived from pose keypoints  
 - Raw images cannot be used directly for inference  
@@ -140,6 +141,7 @@ These may include:
 During execution, the project may generate:
 - trained model checkpoints in checkpoints/
 - output figures (e.g., confusion matrices) in outputs/
+
 
 ## Contributing
 
