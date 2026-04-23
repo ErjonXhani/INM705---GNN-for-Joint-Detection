@@ -1,6 +1,6 @@
 """
 Convert MediaPipe keypoint JSON files into PyTorch Geometric graph objects
-and split them class-wise into train/val/test using an 80/10/10 ratio.
+and split them class-wise into train/val/test using an 70/15/15 ratio.
 
 Input structure:
 keypoints/
@@ -64,9 +64,9 @@ EDGE_INDEX = torch.tensor(
 ).t().contiguous()
 
 
-# --------------------------------------------------
+
 # Keypoint normalization
-# --------------------------------------------------
+
 def normalize_keypoints(keypoints):
     """
     Input:
@@ -90,9 +90,9 @@ def normalize_keypoints(keypoints):
     return x
 
 
-# --------------------------------------------------
+
 # Convert one JSON file into a graph
-# --------------------------------------------------
+
 def json_to_graph(json_path, label_map):
     with open(json_path, "r", encoding="utf-8") as f:
         sample = json.load(f)
@@ -113,9 +113,9 @@ def json_to_graph(json_path, label_map):
     return data
 
 
-# --------------------------------------------------
+
 # Collect JSON files from keypoints folder
-# --------------------------------------------------
+
 def collect_files_by_class(input_root):
     input_root = Path(input_root)
 
@@ -136,10 +136,10 @@ def collect_files_by_class(input_root):
     return file_dict
 
 
-# --------------------------------------------------
-# Class-wise 80/10/10 split
-# --------------------------------------------------
-def stratified_split(file_dict, train_ratio=0.8, val_ratio=0.1, test_ratio=0.1, seed=42):
+
+
+
+def stratified_split(file_dict, train_ratio=0.7, val_ratio=0.15, test_ratio=0.15, seed=42):
     """
     Splits each class separately into train/val/test.
 
@@ -212,9 +212,8 @@ def stratified_split(file_dict, train_ratio=0.8, val_ratio=0.1, test_ratio=0.1, 
     return split_dict, summary
 
 
-# --------------------------------------------------
 # Save graph objects as .pt files
-# --------------------------------------------------
+
 def save_graphs(split_dict, output_root, label_map):
     output_root = Path(output_root)
 
@@ -232,9 +231,9 @@ def save_graphs(split_dict, output_root, label_map):
                     print(f"Error processing {json_path}: {e}")
 
 
-# --------------------------------------------------
+
 # Main
-# --------------------------------------------------
+
 def main():
     input_root = "keypoints"
     output_root = "data/processed/graphs"
