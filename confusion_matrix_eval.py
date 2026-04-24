@@ -13,6 +13,7 @@ from src.models.gcn_model import PoseGCN
 from src.models.sage_model import PoseGraphSAGE
 from src.models.gin_model import PoseGIN
 from src.datasets.pose_dataset import PoseDataset
+from src.models.gat_model import PoseGAT
 
 
 def build_model(config, num_classes, input_dim):
@@ -42,6 +43,15 @@ def build_model(config, num_classes, input_dim):
             num_classes=num_classes,
             num_layers=config["model"]["num_layers"],
             dropout=config["model"]["dropout"],
+        )
+    elif model_name == "GAT":
+        model = PoseGAT(
+            input_dim=input_dim,
+            hidden_dim=config["model"]["hidden_dim"],
+            num_classes=num_classes,
+            num_layers=config["model"]["num_layers"],
+            dropout=config["model"]["dropout"],
+            heads=config["model"].get("heads", 2),
         )
     else:
         raise ValueError(f"Unsupported model name: {model_name}")
