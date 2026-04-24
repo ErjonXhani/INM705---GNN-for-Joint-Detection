@@ -1,0 +1,92 @@
+_wandb:
+    value:
+        cli_version: 0.26.0
+        e:
+            m2b4wr8h63w206pbv8uiqvwtze497flw:
+                args:
+                    - --config
+                    - configs/gat_baseline.yaml
+                codePath: train.py
+                codePathLocal: train.py
+                cpu_count: 8
+                cpu_count_logical: 16
+                cudaVersion: "12.9"
+                disk:
+                    /:
+                        total: "1022844989440"
+                        used: "279949934592"
+                email: omari.march@gmail.com
+                executable: C:\Users\omari\miniconda3\envs\yoga-gnn\python.exe
+                git:
+                    commit: e56b8e3463e086b71087e115bc596ef0b880abd9
+                    remote: https://github.com/ErjonXhani/INM705---GNN-for-Joint-Detection.git
+                gpu: NVIDIA GeForce RTX 4060 Laptop GPU
+                gpu_count: 1
+                gpu_nvidia:
+                    - architecture: Ada
+                      cudaCores: 3072
+                      memoryTotal: "8585740288"
+                      name: NVIDIA GeForce RTX 4060 Laptop GPU
+                      uuid: GPU-a551a9b7-cf66-d88e-dfa9-17bd5b7ae0f1
+                host: Omari
+                memory:
+                    total: "16437858304"
+                os: Windows-10-10.0.26200-SP0
+                program: C:\Users\omari\OneDrive\Desktop\MastersTerm2Projects\Deep Learning For Imaging\INM705---GNN-for-Joint-Detection\train.py
+                python: CPython 3.10.20
+                root: C:\Users\omari\OneDrive\Desktop\MastersTerm2Projects\Deep Learning For Imaging\INM705---GNN-for-Joint-Detection
+                startedAt: "2026-04-18T20:01:53.489816Z"
+                writerId: m2b4wr8h63w206pbv8uiqvwtze497flw
+        m: []
+        python_version: 3.10.20
+        t:
+            "1":
+                - 1
+                - 77
+            "2":
+                - 1
+                - 77
+            "3":
+                - 2
+                - 13
+                - 16
+            "4": 3.10.20
+            "5": 0.26.0
+            "8":
+                - 3
+            "12": 0.26.0
+            "13": windows-amd64
+data:
+    value:
+        processed_dir: keypoints
+        raw_dir: data/raw/YogaPoses
+        splits_dir: data/splits
+evaluation:
+    value:
+        metrics:
+            - accuracy
+            - precision
+            - recall
+            - f1
+        output_dir: outputs
+model:
+    value:
+        dropout: 0.6
+        heads: 4
+        hidden_dim: 128
+        name: GAT
+        num_layers: 3
+        use_confidence: true
+notes:
+    value:
+        comments: Main attention-based baseline using 3 layers and 4 heads
+        experiment_goal: Baseline GAT model for yoga pose classification
+        node_features: '[x, y, confidence]'
+training:
+    value:
+        batch_size: 32
+        checkpoint_dir: checkpoints
+        device: cpu
+        epochs: 100
+        learning_rate: 0.001
+        run_name: gat_baseline_omari

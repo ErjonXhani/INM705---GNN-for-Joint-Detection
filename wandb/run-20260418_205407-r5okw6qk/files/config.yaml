@@ -1,0 +1,74 @@
+_wandb:
+    value:
+        cli_version: 0.26.0
+        e:
+            zcb9bhqtxnqlhim9kkox4yv138hucftl:
+                args:
+                    - --config
+                    - configs/gat_test.yaml
+                codePath: train.py
+                codePathLocal: train.py
+                email: omari.march@gmail.com
+                executable: C:\Users\omari\miniconda3\envs\yoga-gnn\python.exe
+                git:
+                    commit: e56b8e3463e086b71087e115bc596ef0b880abd9
+                    remote: https://github.com/ErjonXhani/INM705---GNN-for-Joint-Detection.git
+                host: Omari
+                os: Windows-10-10.0.26200-SP0
+                program: C:\Users\omari\OneDrive\Desktop\MastersTerm2Projects\Deep Learning For Imaging\INM705---GNN-for-Joint-Detection\train.py
+                python: CPython 3.10.20
+                root: C:\Users\omari\OneDrive\Desktop\MastersTerm2Projects\Deep Learning For Imaging\INM705---GNN-for-Joint-Detection
+                startedAt: "2026-04-18T19:54:07.374946Z"
+                writerId: zcb9bhqtxnqlhim9kkox4yv138hucftl
+        m: []
+        python_version: 3.10.20
+        t:
+            "1":
+                - 1
+                - 77
+            "2":
+                - 1
+                - 77
+            "3":
+                - 13
+                - 16
+            "4": 3.10.20
+            "5": 0.26.0
+            "8":
+                - 3
+            "12": 0.26.0
+            "13": windows-amd64
+data:
+    value:
+        processed_dir: keypoints
+        raw_dir: data/raw/YogaPoses
+        splits_dir: data/splits
+evaluation:
+    value:
+        metrics:
+            - accuracy
+            - precision
+            - recall
+            - f1
+        output_dir: outputs
+model:
+    value:
+        dropout: 0.5
+        heads: 2
+        hidden_dim: 64
+        name: gat_model
+        num_layers: 2
+        use_confidence: true
+notes:
+    value:
+        comments: Used just to check training, checkpoint saving, and wandb logging before full runs
+        experiment_goal: Quick test run for GAT pipeline
+        node_features: '[x, y, confidence]'
+training:
+    value:
+        batch_size: 32
+        checkpoint_dir: checkpoints
+        device: cpu
+        epochs: 3
+        learning_rate: 0.001
+        run_name: gat_test_omari

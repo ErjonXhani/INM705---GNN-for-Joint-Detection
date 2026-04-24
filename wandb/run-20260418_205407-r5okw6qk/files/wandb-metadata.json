@@ -1,0 +1,21 @@
+{
+  "os":  "Windows-10-10.0.26200-SP0",
+  "python":  "CPython 3.10.20",
+  "startedAt":  "2026-04-18T19:54:07.374946Z",
+  "args":  [
+    "--config",
+    "configs/gat_test.yaml"
+  ],
+  "program":  "C:\\Users\\omari\\OneDrive\\Desktop\\MastersTerm2Projects\\Deep Learning For Imaging\\INM705---GNN-for-Joint-Detection\\train.py",
+  "codePath":  "train.py",
+  "codePathLocal":  "train.py",
+  "git":  {
+    "remote":  "https://github.com/ErjonXhani/INM705---GNN-for-Joint-Detection.git",
+    "commit":  "e56b8e3463e086b71087e115bc596ef0b880abd9"
+  },
+  "email":  "omari.march@gmail.com",
+  "root":  "C:\\Users\\omari\\OneDrive\\Desktop\\MastersTerm2Projects\\Deep Learning For Imaging\\INM705---GNN-for-Joint-Detection",
+  "host":  "Omari",
+  "executable":  "C:\\Users\\omari\\miniconda3\\envs\\yoga-gnn\\python.exe",
+  "writerId":  "zcb9bhqtxnqlhim9kkox4yv138hucftl"
+}
