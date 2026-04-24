@@ -120,8 +120,10 @@ python train.py --config configs/baseline.yaml
 
 Inference in this project is performed as part of the evaluation pipeline on the test dataset.
 
+python inference.py --checkpoint checkpoints/sage_final_no_conf_erjon.pt --config configs/sage_final_no_conf.yaml
+
 For example, evaluation scripts can be used to generate performance metrics and confusion matrices:
-python confusion_matrix_eval.py
+python confusion_matrix_eval.py --checkpoint checkpoints/sage_final_no_conf_erjon.pt --config configs/sage_final_no_conf.yaml --split test
 
 
 **Note:**
