@@ -1,5 +1,3 @@
-"""Inference script for raw yoga pose images using MediaPipe + graph conversion."""
-
 import argparse
 from pathlib import Path
 
