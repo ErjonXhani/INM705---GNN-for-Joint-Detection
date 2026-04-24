@@ -126,7 +126,6 @@ dmypy.json
 checkpoints/
 outputs/
 *.pth
-*.pt
 data/processed/
 .DS_Store
 
