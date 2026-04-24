@@ -78,9 +78,9 @@ def main(checkpoint_path, config_path, split="test", num_examples=5, graph_path=
     load_checkpoint(model, optimizer, checkpoint_path)
     model.eval()
 
-    # -------------------------------
+    
     # SINGLE GRAPH MODE
-    # -------------------------------
+    
     if graph_path is not None:
         graph = torch.load(graph_path, weights_only=False)
 
@@ -106,9 +106,9 @@ def main(checkpoint_path, config_path, split="test", num_examples=5, graph_path=
 
         return
 
-    # -------------------------------
+    
     # FULL SPLIT MODE
-    # -------------------------------
+    
     loader = DataLoader(
         dataset,
         batch_size=config["training"]["batch_size"],
