@@ -1,0 +1,91 @@
+_wandb:
+    value:
+        cli_version: 0.25.1
+        e:
+            tpt58u383q62z7nbs3m5pyjesl1hul33:
+                args:
+                    - --config
+                    - configs/gin_final_no_conf.yaml
+                codePath: train.py
+                codePathLocal: train.py
+                cpu_count: 24
+                cpu_count_logical: 24
+                cudaVersion: "13.1"
+                disk:
+                    /:
+                        total: "994399219712"
+                        used: "214496854016"
+                email: xhanierjon2003@gmail.com
+                executable: C:\Users\xhani\OneDrive\Documents\GitHub\INM705---GNN-for-Joint-Detection\.venv\Scripts\python.exe
+                git:
+                    commit: 6632273ec81b6b0cead0e34aebca856a5627f0fa
+                    remote: https://github.com/ErjonXhani/INM705---GNN-for-Joint-Detection.git
+                gpu: NVIDIA GeForce RTX 5070 Ti Laptop GPU
+                gpu_count: 1
+                gpu_nvidia:
+                    - architecture: Blackwell
+                      cudaCores: 5888
+                      memoryTotal: "12820938752"
+                      name: NVIDIA GeForce RTX 5070 Ti Laptop GPU
+                      uuid: GPU-69a20f24-2390-fbcd-b938-951d463cfe44
+                host: MSI
+                memory:
+                    total: "34004504576"
+                os: Windows-11-10.0.26200-SP0
+                program: C:\Users\xhani\OneDrive\Documents\GitHub\INM705---GNN-for-Joint-Detection\train.py
+                python: CPython 3.12.6
+                root: C:\Users\xhani\OneDrive\Documents\GitHub\INM705---GNN-for-Joint-Detection
+                startedAt: "2026-04-18T16:37:45.278811Z"
+                writerId: tpt58u383q62z7nbs3m5pyjesl1hul33
+        m: []
+        python_version: 3.12.6
+        t:
+            "1":
+                - 1
+                - 77
+            "2":
+                - 1
+                - 77
+            "3":
+                - 2
+                - 13
+                - 16
+            "4": 3.12.6
+            "5": 0.25.1
+            "8":
+                - 3
+            "12": 0.25.1
+            "13": windows-amd64
+data:
+    value:
+        processed_dir: keypoints
+        raw_dir: data/raw/YogaPoses
+        splits_dir: data/splits
+evaluation:
+    value:
+        metrics:
+            - accuracy
+            - precision
+            - recall
+            - f1
+        output_dir: outputs
+model:
+    value:
+        dropout: 0.7
+        hidden_dim: 128
+        name: GIN
+        num_layers: 2
+        use_confidence: false
+notes:
+    value:
+        comments: Testing confidence importance under the best GIN architecture
+        experiment_goal: Final GIN without confidence
+        node_features: '[x, y]'
+training:
+    value:
+        batch_size: 32
+        checkpoint_dir: checkpoints
+        device: cpu
+        epochs: 100
+        learning_rate: 0.001
+        run_name: gin_final_no_conf_erjon

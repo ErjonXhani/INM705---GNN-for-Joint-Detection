@@ -1,0 +1,91 @@
+_wandb:
+    value:
+        cli_version: 0.25.1
+        e:
+            1928u1slo56o3aoicqugnozheoz16tfx:
+                args:
+                    - --config
+                    - configs/gin_dropout_06.yaml
+                codePath: train.py
+                codePathLocal: train.py
+                cpu_count: 24
+                cpu_count_logical: 24
+                cudaVersion: "13.1"
+                disk:
+                    /:
+                        total: "994399219712"
+                        used: "213672480768"
+                email: xhanierjon2003@gmail.com
+                executable: C:\Users\xhani\OneDrive\Documents\GitHub\INM705---GNN-for-Joint-Detection\.venv\Scripts\python.exe
+                git:
+                    commit: 60b55af94b60da2707f8e424cbdcc8e17f38815a
+                    remote: https://github.com/ErjonXhani/INM705---GNN-for-Joint-Detection.git
+                gpu: NVIDIA GeForce RTX 5070 Ti Laptop GPU
+                gpu_count: 1
+                gpu_nvidia:
+                    - architecture: Blackwell
+                      cudaCores: 5888
+                      memoryTotal: "12820938752"
+                      name: NVIDIA GeForce RTX 5070 Ti Laptop GPU
+                      uuid: GPU-69a20f24-2390-fbcd-b938-951d463cfe44
+                host: MSI
+                memory:
+                    total: "34004504576"
+                os: Windows-11-10.0.26200-SP0
+                program: C:\Users\xhani\OneDrive\Documents\GitHub\INM705---GNN-for-Joint-Detection\train.py
+                python: CPython 3.12.6
+                root: C:\Users\xhani\OneDrive\Documents\GitHub\INM705---GNN-for-Joint-Detection
+                startedAt: "2026-04-17T19:32:31.354561Z"
+                writerId: 1928u1slo56o3aoicqugnozheoz16tfx
+        m: []
+        python_version: 3.12.6
+        t:
+            "1":
+                - 1
+                - 77
+            "2":
+                - 1
+                - 77
+            "3":
+                - 2
+                - 13
+                - 16
+            "4": 3.12.6
+            "5": 0.25.1
+            "8":
+                - 3
+            "12": 0.25.1
+            "13": windows-amd64
+data:
+    value:
+        processed_dir: keypoints
+        raw_dir: data/raw/YogaPoses
+        splits_dir: data/splits
+evaluation:
+    value:
+        metrics:
+            - accuracy
+            - precision
+            - recall
+            - f1
+        output_dir: outputs
+model:
+    value:
+        dropout: 0.6
+        hidden_dim: 128
+        name: GIN
+        num_layers: 3
+        use_confidence: true
+notes:
+    value:
+        comments: Reducing overfitting
+        experiment_goal: GIN higher dropout
+        node_features: '[x, y, confidence]'
+training:
+    value:
+        batch_size: 32
+        checkpoint_dir: checkpoints
+        device: cpu
+        epochs: 100
+        learning_rate: 0.001
+        run_name: gin_dropout_06_erjon
