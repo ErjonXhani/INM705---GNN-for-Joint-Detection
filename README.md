@@ -105,6 +105,10 @@ Before training, the dataset should go through the following steps:
 3. Split the dataset into training, validation, and test sets  
 4. Save processed graph data in the `data/processed/` directory  
 
+### Visualization of keypoints
+
+python src/preprocessing/visualize.py
+
 ## Usage
 
 ### Training
