@@ -59,10 +59,12 @@ git clone <repository-url>
 cd INM705---GNN-FOR-JOINT-DETECTION 
 
 ### 2. Create and activate a virtual environment
-python -m venv venv
+On Mac/ Linux: python -m venv venv
+
 source venv/bin/activate
 
 On Windows:
+
 venv\Scripts\activate
 
 ### 3. Install dependencies
