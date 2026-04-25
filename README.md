@@ -2,6 +2,10 @@
 
 A Graph Neural Network (GNN) project for yoga pose classification using human body keypoints extracted from images. The system converts detected body landmarks into graph representations, where joints are treated as nodes and anatomical connections are treated as edges, and then uses GNN models to classify yoga poses.
 
+
+Raw Images are in the original repo under this link for space we did not include them 
+https://github.com/ErjonXhani/INM705---GNN-for-Joint-Detection/tree/main/data/raw/YogaPoses
+
 ## Project Overview
 
 This project investigates the use of Graph Neural Networks for yoga pose recognition. Instead of performing classification directly on raw images, the pipeline first extracts human pose keypoints and then builds a skeleton graph for each image. These graphs are used as input to the GNN model.
@@ -59,8 +63,11 @@ git clone <repository-url>
 cd INM705---GNN-FOR-JOINT-DETECTION 
 
 ### 2. Create and activate a virtual environment
-On Mac/ Linux: python -m venv venv
+python -m venv venv
 
+Note: If multiple Python versions are installed, use: py -3.10 -m venv venv
+
+On Mac/ Linux:
 source venv/bin/activate
 
 On Windows:
@@ -114,15 +121,21 @@ python src/preprocessing/visualize.py
 ## Usage
 
 ### Training
-Train the model using the baseline configuration:
+Train the model using the yaml configuration:
 
 python train.py --config configs/baseline.yaml
 
-### Evaluation / Inference
+Erjon's WandB key: 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
+
+### Evaluation / Inference / 3 Best Models
 
 Inference in this project is performed as part of the evaluation pipeline on the test dataset.
 
 python inference.py --checkpoint checkpoints/sage_final_no_conf_erjon.pt --config configs/sage_final_no_conf.yaml
+
+python inference.py --checkpoint checkpoints/gat_heads8_hidden256_erjon.pt --config configs/gat_heads_8_hidden_256.yaml
+
+python inference.py --checkpoint checkpoints/gin_final_erjon.pt --config configs/final_gin.yaml
 
 For example, evaluation scripts can be used to generate performance metrics and confusion matrices:
 python confusion_matrix_eval.py --checkpoint checkpoints/sage_final_no_conf_erjon.pt --config configs/sage_final_no_conf.yaml --split test
