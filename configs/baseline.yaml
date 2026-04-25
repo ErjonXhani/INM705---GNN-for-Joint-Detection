@@ -23,6 +23,7 @@ training:
   epochs: 100
   device: "cpu"
   checkpoint_dir: "checkpoints"
+  run_name: "test_on_new_environment"
   
 # Evaluation settings
 evaluation:

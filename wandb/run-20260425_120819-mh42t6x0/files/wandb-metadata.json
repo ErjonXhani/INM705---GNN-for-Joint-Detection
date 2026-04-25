@@ -1,0 +1,44 @@
+{
+  "os": "Windows-10-10.0.19045-SP0",
+  "python": "CPython 3.11.1",
+  "startedAt": "2026-04-25T10:08:19.835258Z",
+  "args": [
+    "--config",
+    "configs/final_sage.yaml"
+  ],
+  "program": "C:\\Users\\USER\\OneDrive\\Documents\\GitHub\\INM705---GNN-for-Joint-Detection\\train.py",
+  "codePath": "train.py",
+  "codePathLocal": "train.py",
+  "git": {
+    "remote": "https://github.com/ErjonXhani/INM705---GNN-for-Joint-Detection.git",
+    "commit": "573b5057977d7ccfa9f7c69eac6fa949eb8aeb71"
+  },
+  "email": "xhanierjon2003@gmail.com",
+  "root": "C:\\Users\\USER\\OneDrive\\Documents\\GitHub\\INM705---GNN-for-Joint-Detection",
+  "host": "DESKTOP-VLQ892D",
+  "executable": "C:\\Users\\USER\\OneDrive\\Documents\\GitHub\\INM705---GNN-for-Joint-Detection\\venv\\Scripts\\python.exe",
+  "cpu_count": 4,
+  "cpu_count_logical": 8,
+  "gpu": "Quadro M1000M",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "511511941120",
+      "used": "180542513152"
+    }
+  },
+  "memory": {
+    "total": "16761815040"
+  },
+  "gpu_nvidia": [
+    {
+      "name": "Quadro M1000M",
+      "memoryTotal": "2147483648",
+      "cudaCores": 512,
+      "architecture": "Maxwell",
+      "uuid": "GPU-0823a3c0-0754-28e8-3f58-61e696ace487"
+    }
+  ],
+  "cudaVersion": "12.0",
+  "writerId": "6nimdv4rrb4h0dh8mz0lac584kcyghn9"
+}
