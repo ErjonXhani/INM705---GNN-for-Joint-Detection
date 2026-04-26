@@ -125,6 +125,14 @@ Train the model using the yaml configuration:
 
 python train.py --config configs/baseline.yaml
 
+### The best configs:
+
+sage_final_no_conf.yaml
+
+final_gin.yaml
+
+gat_heads_8_hidden_256.yaml
+
 ### Erjon's WandB key: 
 
 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
