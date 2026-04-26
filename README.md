@@ -125,7 +125,9 @@ Train the model using the yaml configuration:
 
 python train.py --config configs/baseline.yaml
 
-Erjon's WandB key: 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
+### Erjon's WandB key: 
+
+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
 
 ### Evaluation / Inference / 3 Best Models
 
